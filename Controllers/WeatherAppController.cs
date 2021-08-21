@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeatherApp.WeatherAppModels;
+using WeatherApp.OpenWeatherModels;
+using WeatherApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WeatherApp.Controllers

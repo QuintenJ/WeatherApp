@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WeatherApp.Repositories;
 
 namespace WeatherApp
 {
@@ -23,6 +24,9 @@ namespace WeatherApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register Forecast repository
+            services.AddScoped<IWeatherRepository, WeatherRepository>();
+
             services.AddControllersWithViews();
         }
 
