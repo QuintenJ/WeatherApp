@@ -11,6 +11,14 @@ namespace WeatherApp.Controllers
 {
     public class WeatherAppController : Controller
     {
+        private readonly IWeatherRepository _weatherRepository;
+
+        // Dependency Injection
+        public WeatherAppController(IWeatherRepository weatherAppRepo)
+        {
+            _weatherRepository = weatherAppRepo;
+        }
+
         // GET: WeatherApp/SearchCity
         public IActionResult SearchCity()
         {
@@ -32,7 +40,19 @@ namespace WeatherApp.Controllers
         // GET: WeatherApp/City
         public IActionResult City(string city)
         {
+            // Consume the OpenWeatherAPI bring Weather data in.
+            WeatherResponse weatherResponse = _weatherRepository.GetForecast(city);
             City viewModel = new City();
+
+            if (weatherResponse != null)
+            {
+                viewModel.Name = weatherResponse.Name;
+                viewModel.Humidity = weatherResponse.Main.Humidity;
+                viewModel.Pressure = weatherResponse.Main.Pressure;
+                viewModel.Temp = weatherResponse.Main.Temp;
+                viewModel.Weather = weatherResponse.Weather[0].Main;
+                viewModel.Wind = weatherResponse.Wind.Speed;
+            }
             return View(viewModel);
         }
     }
